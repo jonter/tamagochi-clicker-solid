@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
-    public static GameData Data;
     
     // Start is called before the first frame update
     void Awake()
     {
-        Data = new GameData();
+        GameData.Instance = new GameData();
         Load();
     }
 
@@ -26,7 +25,7 @@ public class SaveSystem : MonoBehaviour
 
     void Save()
     {
-        string sdata = JsonUtility.ToJson(Data);
+        string sdata = JsonUtility.ToJson(GameData.Instance);
         print(sdata);
         PlayerPrefs.SetString("data", sdata);
         print("Сохранились");
@@ -37,7 +36,7 @@ public class SaveSystem : MonoBehaviour
         if (PlayerPrefs.HasKey("data") == false) return;
 
         string sdata = PlayerPrefs.GetString("data");
-        Data = JsonUtility.FromJson<GameData>(sdata);
+        GameData.Instance = JsonUtility.FromJson<GameData>(sdata);
         print("Загрузка завершена");
     }
 

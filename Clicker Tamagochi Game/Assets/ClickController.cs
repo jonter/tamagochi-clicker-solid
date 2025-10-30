@@ -5,15 +5,12 @@ using TMPro;
 
 public class ClickController : MonoBehaviour
 {
-    [SerializeField] TMP_Text _coinsText;
-    [SerializeField] TMP_Text _upgradeText;
-
     GameData data;
 
     // Start is called before the first frame update
     void Start()
     {
-        data = SaveSystem.Data;
+        data = GameData.Instance;
     }
 
     // Update is called once per frame
@@ -21,19 +18,14 @@ public class ClickController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            data.Coins += data.CoinsPerClick;
+            data.AddCoins(data.CoinsPerClick);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if(data.Coins >= 30)
-            {
-                data.Coins -= 30;
-                data.CoinsPerClick += 1;
-            }
+            bool success = data.SpendCoins(30);
+            if (success) data.CoinsPerClick++;
         }
 
-        _coinsText.text = "Монетки: " + data.Coins;
-        _upgradeText.text = "Прокачка: " + data.CoinsPerClick;
-        
+       
     }
 }
