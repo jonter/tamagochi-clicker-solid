@@ -12,6 +12,11 @@ public class ClickController : MonoBehaviour
     {
         data = GameData.Instance;
     }
+    
+    void Test(int level)
+    {
+
+    }
 
     // Update is called once per frame
     void Update()

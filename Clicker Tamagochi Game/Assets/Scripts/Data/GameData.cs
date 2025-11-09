@@ -4,13 +4,15 @@ using System;
 public class GameData 
 {
     public static GameData Instance;
+    public PlayerData player = new PlayerData();
+    public ComputerData computer = new ComputerData();
 
     public float Coins = 0;
     public int CoinsPerClick = 1;
 
     public event Action<float> OnCoinsAdd;
     public event Action<float, bool> OnCoinsSpend;
-    
+        
     public void AddCoins(float add)
     {
         Coins += add;
