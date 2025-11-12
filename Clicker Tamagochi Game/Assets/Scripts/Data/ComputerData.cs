@@ -43,13 +43,38 @@ public class ComputerData
         bool success = GameData.Instance.SpendCoins(CPUPrice);
         if (success == false) return false;
         CPULevel += 1;
-        CPUPrice *= 1.7f;
+        CPUPrice *= 1.8f;
         if (OnCPUUpgrade != null) OnCPUUpgrade(CPULevel);
         return true;
     }
 
-    // дописать, плиииз
+    public bool UpgradeRAM()
+    {
+        int max = MaxLevels[SetupLevel];
+        if (RAMLevel >= max) return false;
+        bool success = GameData.Instance.SpendCoins(RAMPrice);
+        if (success == false) return false;
+        RAMLevel += 1;
+        RAMPrice *= 2.2f;
+        if (OnRAMUpgrade != null) OnRAMUpgrade(RAMLevel);
+        return true;
+    }
 
-    
+
+    public bool UpgradeVC()
+    {
+        int max = MaxLevels[SetupLevel];
+        if (VCLevel >= max) return false;
+        bool success = GameData.Instance.SpendCoins(VCPrice);
+        if (success == false) return false;
+        VCLevel += 1;
+        VCPrice *= 1.9f;
+        if (OnVCUpgrade != null) OnVCUpgrade(VCLevel);
+        return true;
+    }
+
+
+
+
 
 }

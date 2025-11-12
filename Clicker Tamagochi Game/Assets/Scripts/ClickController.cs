@@ -12,23 +12,18 @@ public class ClickController : MonoBehaviour
     {
         data = GameData.Instance;
     }
-    
-    void Test(int level)
-    {
-
-    }
+ 
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            data.AddCoins(data.CoinsPerClick);
+            data.EarnCoinsForClick();
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            bool success = data.SpendCoins(30);
-            if (success) data.CoinsPerClick++;
+            data.computer.UpgradeCPU();
         }
 
        
