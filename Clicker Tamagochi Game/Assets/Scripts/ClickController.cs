@@ -2,30 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ClickController : MonoBehaviour
 {
     GameData data;
+    public event Action OnClick;
 
     // Start is called before the first frame update
     void Start()
     {
         data = GameData.Instance;
     }
- 
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            data.EarnCoinsForClick();
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            data.computer.UpgradeCPU();
-        }
-
-       
+        data.EarnCoinsForClick();
+        if (OnClick != null) OnClick();
     }
+
 }
