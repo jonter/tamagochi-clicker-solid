@@ -14,7 +14,7 @@ public class ComputerData
     public float[] SetupPrices = {1500, 100000, 5000000, 1000000000};
     
     [NonSerialized]
-    public int[] MaxLevels = {3, 7, 12, 20, 10000};
+    public int[] MaxLevels = {5, 7, 12, 20, 10000};
 
     public float CPUPrice = 40;
     public float RAMPrice = 200;
@@ -74,7 +74,12 @@ public class ComputerData
     }
 
 
-
+    public bool CheckLevelLimit(int level)
+    {
+        int max = MaxLevels[SetupLevel];
+        bool check = (level >= max);
+        return check;
+    }
 
 
 }

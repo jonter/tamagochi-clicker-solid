@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.EventSystems;
 
 public class ClickController : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class ClickController : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (EventSystem.current.IsPointerOverGameObject(1)) return;
         data.EarnCoinsForClick();
         if (OnClick != null) OnClick();
     }

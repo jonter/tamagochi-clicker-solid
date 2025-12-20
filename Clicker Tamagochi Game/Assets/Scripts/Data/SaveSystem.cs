@@ -37,8 +37,16 @@ public class SaveSystem : MonoBehaviour
         if (PlayerPrefs.HasKey("data") == false) return;
 
         string sdata = PlayerPrefs.GetString("data");
-        GameData.Instance = JsonUtility.FromJson<GameData>(sdata);
-        print("Загрузка завершена");
+        if (string.IsNullOrEmpty(sdata) == true)
+        {
+            GameData.Instance = new GameData();
+        }
+        else
+        {
+            GameData.Instance = JsonUtility.FromJson<GameData>(sdata);
+            print(GameData.Instance);
+            print("Загрузка завершена");
+        }
     }
 
    
