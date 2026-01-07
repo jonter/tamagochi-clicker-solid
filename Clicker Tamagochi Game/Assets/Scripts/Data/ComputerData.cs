@@ -12,6 +12,11 @@ public class ComputerData
     
     [NonSerialized]
     public float[] SetupPrices = {1500, 100000, 5000000, 1000000000};
+    public float GetSetupPrice()
+    {
+        if (SetupLevel > 3) return 900000000000;
+        return SetupPrices[SetupLevel];
+    }
     
     [NonSerialized]
     public int[] MaxLevels = {5, 7, 12, 20, 10000};

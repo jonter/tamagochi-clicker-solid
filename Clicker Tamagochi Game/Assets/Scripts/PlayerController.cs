@@ -8,42 +8,21 @@ public class PlayerController : MonoBehaviour
     Animator anim;
 
     float animSpeed = 1;
-    float timer = 0;
-    int clicks = 0;
 
     private void OnEnable()
     {
         anim = GetComponent<Animator>();
         cc = FindAnyObjectByType<ClickController>();
-        cc.OnClick += Code;
-    }
-
-    private void OnDisable()
-    {
-        cc.OnClick -= Code;
-    }
-
-    void Code()
-    {
-        clicks++;
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        if(timer >= 1)
-        {
-            float clicksPerMinute = clicks * 60;
-            print("CPM: " + clicksPerMinute);
-            SetAnim(clicksPerMinute);
-            clicks = 0;
-            timer = 0;
-        }
+        SetAnim();
     }
 
-    void SetAnim(float cpm)
+    void SetAnim()
     {
-        if(cpm < 100)
+        if(cc.CPS < 1)
         {
             anim.SetBool("code", false);
             animSpeed = 0.8f;
@@ -51,10 +30,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("code", true);
-            if (cpm < 200) animSpeed = 0.8f;
-            else if (cpm < 300) animSpeed = 1.2f;
-            else if (cpm < 400) animSpeed = 1.5f;
-            else if(cpm < 500) animSpeed = 1.9f;
+            if (cc.CPS < 2) animSpeed = 0.8f;
+            else if (cc.CPS < 3) animSpeed = 1.2f;
+            else if (cc.CPS < 4.5f) animSpeed = 1.5f;
+            else if(cc.CPS < 6) animSpeed = 1.9f;
             anim.SetFloat("codespeed", animSpeed);
         }
         

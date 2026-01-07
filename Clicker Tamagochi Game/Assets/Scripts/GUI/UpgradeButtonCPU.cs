@@ -7,8 +7,8 @@ using DG.Tweening;
 
 public class UpgradeButtonCPU : MonoBehaviour
 {
-    [SerializeField]  TMP_Text priceText;
-    Button button;
+    [SerializeField] protected TMP_Text priceText;
+    protected Button button;
 
     Vector3 startPos;
     RectTransform rect;
@@ -23,12 +23,19 @@ public class UpgradeButtonCPU : MonoBehaviour
         DisplayInfo();
         startPos = rect.anchoredPosition;
         button.onClick.AddListener(OnButtonClick);
+        GameData.Instance.computer.OnSetupUpgrade += UpdateInfoOnSetup;
     }
 
     private void OnDisable()
     {
         rect.DOKill();
         button.onClick.RemoveListener(OnButtonClick);
+        GameData.Instance.computer.OnSetupUpgrade -= UpdateInfoOnSetup;
+    }
+
+    void UpdateInfoOnSetup(int level)
+    {
+        DisplayInfo();
     }
 
     void OnButtonClick()
@@ -48,6 +55,7 @@ public class UpgradeButtonCPU : MonoBehaviour
         else
         {
             // сыграть негативный звук
+            Hints.Show("Недостаточно денег :(");
             rect.DOScale(0.9f, animTime).SetLoops(2, LoopType.Yoyo);
         }
     }
@@ -67,7 +75,7 @@ public class UpgradeButtonCPU : MonoBehaviour
         return GameData.Instance.computer.CPULevel;
     }
     
-    void DisplayInfo()
+    protected virtual void DisplayInfo()
     {
         float price = GetPrice();
         priceText.text = $"[{CoinsFormatter.Convert(price, "#.#")}]";
