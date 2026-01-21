@@ -42,9 +42,9 @@ public class ClickController : MonoBehaviour
 
     private void Update()
     {
-        CPS = Mathf.Lerp(CPS, realCPS, 5 * Time.deltaTime);
+        CPS = Mathf.Lerp(CPS, realCPS, 4 * Time.deltaTime);
         print(CPS);
-        realCPS -= Time.deltaTime;
+        realCPS -= Time.deltaTime * 3;
         if (realCPS < 0) realCPS = 0;
     }
 

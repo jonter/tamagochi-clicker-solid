@@ -6,6 +6,7 @@ public class GameData
     public static GameData Instance;
     public PlayerData player = new PlayerData();
     public ComputerData computer = new ComputerData();
+    public TamagochiData[] tamagochies;
 
     public float Coins = 0;
     private float multiplier = 1;
