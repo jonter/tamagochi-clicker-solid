@@ -50,7 +50,7 @@ public class UpgradeButtonCPU : MonoBehaviour
             rect.DOScale(1.1f, animTime).SetLoops(2, LoopType.Yoyo);
             rect.DOAnchorPosY(rect.anchoredPosition.y + 20, animTime)
                 .SetLoops(2, LoopType.Yoyo);
-            DisplayInfo();
+            OnSuccess();
         }
         else
         {
@@ -58,6 +58,11 @@ public class UpgradeButtonCPU : MonoBehaviour
             Hints.Show("Недостаточно денег :(");
             rect.DOScale(0.9f, animTime).SetLoops(2, LoopType.Yoyo);
         }
+    }
+
+    protected virtual void OnSuccess()
+    {
+        DisplayInfo();
     }
 
     protected virtual bool CheckBuy()
