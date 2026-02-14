@@ -11,17 +11,22 @@ public class CameraTransition : MonoBehaviour
     [Header("All Points For Camera")]
     [SerializeField] Transform defaultPoint;
     [SerializeField] Transform tamagochiShopPoint;
+    [SerializeField] Transform overviewPoint;
 
-    public static CameraTransition Instance;
     private void Awake()
     {
-        Instance = this;
         camera = Camera.main.transform;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.OnActivate += OnChangeState;
     }
 
     private void OnDisable()
     {
         camera.DOKill();
+        GameManager.Instance.OnActivate -= OnChangeState;
     }
 
     void Move(Transform point)
@@ -30,8 +35,13 @@ public class CameraTransition : MonoBehaviour
         camera.DORotate(point.eulerAngles, animTime);
     }
 
-    public void ToDefault() { Move(defaultPoint); }
-    public void ToTamagochiShop() { Move(tamagochiShopPoint); }
+
+    void OnChangeState(GameState state)
+    {
+        if (state is DefaultState) Move(defaultPoint);
+        else if (state is TamagochiSelectState) Move(tamagochiShopPoint);
+        else if (state is OverviewState) Move(overviewPoint);
+    }
 
 
 }

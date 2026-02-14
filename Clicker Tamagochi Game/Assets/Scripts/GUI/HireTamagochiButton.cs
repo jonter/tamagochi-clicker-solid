@@ -27,11 +27,45 @@ public class HireTamagochiButton : UpgradeButtonCPU
 
     protected override void OnSuccess()
     {
-        GameObject posObj = GameObject.Find("TamagochiShop Position");
-        Camera.main.transform.DOMove(posObj.transform.position, 1);
-        Camera.main.transform.DORotate(posObj.transform.eulerAngles, 1);
-        FindAnyObjectByType<TamagochiSelector>().Activate();
+        TamagochiSelectState tss = FindObjectOfType<TamagochiSelectState>();
+        GameManager.Instance.SwitchState(tss);
     }
 
+
+    void UpdateInfoOnState(GameState state)
+    {
+        if (state is TamagochiSelectState) DisplayInfo();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        GameManager.Instance.OnDeactivate += UpdateInfoOnState;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        GameManager.Instance.OnDeactivate -= UpdateInfoOnState;
+    }
+
+
+    protected override void DisplayInfo()
+    {
+        float price = GetPrice();
+        priceText.text = $"[{CoinsFormatter.Convert(price, "#.#")}]";
+        int level = GetLevel();
+        
+        if (price < 0)
+        {
+            button.interactable = false;
+            priceText.text = "[Максимум работников]";
+        }
+        else
+        {
+            button.interactable = true;
+        }
+        DisplayUpgradeLevel(level);
+    }
 
 }

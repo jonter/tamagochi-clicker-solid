@@ -9,8 +9,10 @@ public class SaveSystem : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        //PlayerPrefs.DeleteAll();
         GameData.Instance = new GameData();
         Load();
+        GameData.Instance.Coins = 150000000000;
     }
 
     private void OnApplicationQuit()

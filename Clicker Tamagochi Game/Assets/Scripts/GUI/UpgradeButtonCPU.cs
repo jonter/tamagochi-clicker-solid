@@ -16,7 +16,7 @@ public class UpgradeButtonCPU : MonoBehaviour
 
     [SerializeField] protected TMP_Text infoText;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         rect = GetComponent<RectTransform>(); 
         button = GetComponent<Button>();
@@ -26,7 +26,7 @@ public class UpgradeButtonCPU : MonoBehaviour
         GameData.Instance.computer.OnSetupUpgrade += UpdateInfoOnSetup;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         rect.DOKill();
         button.onClick.RemoveListener(OnButtonClick);

@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TamagochiSelectState : GameState
+public class OverviewState : GameState
 {
-    
     public override void Activate()
     {
-        TamagochiSelector ts = FindObjectOfType<TamagochiSelector>();
-        ts.Activate();
+        
     }
-    
+
     public override void Deactivate()
     {
         

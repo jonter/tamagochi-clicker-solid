@@ -19,7 +19,7 @@ public class ComputerData
     }
     
     [NonSerialized]
-    public int[] MaxLevels = {5, 7, 12, 20, 10000};
+    public int[] MaxLevels = {6, 12, 20, 10000};
 
     public float CPUPrice = 40;
     public float RAMPrice = 200;

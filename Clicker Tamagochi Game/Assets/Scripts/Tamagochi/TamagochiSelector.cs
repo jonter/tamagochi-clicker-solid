@@ -27,6 +27,8 @@ public class TamagochiSelector : MonoBehaviour
         {
             p.Deactivate();
         }
+        DefaultState def = FindObjectOfType<DefaultState>();
+        GameManager.Instance.SwitchState(def);
     }
 
 }

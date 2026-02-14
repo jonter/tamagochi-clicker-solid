@@ -18,13 +18,12 @@ public class DefaultState : GameState
     public override void Activate()
     {
         cc.enabled = true;
-        upgradePanel.DOAnchorPosX(showX, 1).SetEase(Ease.OutBack);
-        CameraTransition.Instance.ToDefault();
+        upgradePanel.DOAnchorPosX(showX, 1).SetEase(Ease.InOutSine);
     }
 
     public override void Deactivate()
     {
         cc.enabled = false;
-        upgradePanel.DOAnchorPosX(hideX, 1).SetEase(Ease.InBack);
+        upgradePanel.DOAnchorPosX(hideX, 1).SetEase(Ease.InOutSine);
     }
 }
