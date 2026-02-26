@@ -13,6 +13,7 @@ public class GameData
 
     public event Action<float> OnCoinsAdd;
     public event Action<float, bool> OnCoinsSpend;
+    public event Action OnTamagochiBuy;
         
     public void AddCoins(float add)
     {
@@ -82,6 +83,7 @@ public class GameData
         }
         newarray[tamagochies.Length] = td;
         tamagochies = newarray;
+        if (OnTamagochiBuy != null) OnTamagochiBuy();
     }
 
     //////////////

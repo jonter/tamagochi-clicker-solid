@@ -27,6 +27,12 @@ public class TamagochiSelector : MonoBehaviour
         {
             p.Deactivate();
         }
+        StartCoroutine(SwitchCoroutine());
+    }
+
+    IEnumerator SwitchCoroutine()
+    {
+        yield return new WaitForSeconds(1);
         DefaultState def = FindObjectOfType<DefaultState>();
         GameManager.Instance.SwitchState(def);
     }
