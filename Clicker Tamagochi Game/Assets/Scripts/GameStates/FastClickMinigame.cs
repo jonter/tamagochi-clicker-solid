@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FastClickMinigame : MiniGameState
 {
+    public event Action OnGameStart;
     public override void Activate()
     {
         StartCoroutine(StartMiniGame());
@@ -11,11 +13,13 @@ public class FastClickMinigame : MiniGameState
 
     IEnumerator StartMiniGame()
     {
-        Hints.Show("Мини-игра: Быстрый клик", 0.5f);
-        yield return new WaitForSeconds(1);
+        Hints.Show("Мини-игра: Быстрый клик", 1f);
+        yield return new WaitForSeconds(1.5f);
         Hints.Show("Кликай на тамакодера как можно быстрее, " +
-            "чтобы получить больше валюты", 1.5f);
-        yield return StartCoroutine(CountToStart());
+            "чтобы получить больше валюты", 2);
+        CountdownText.Instance.Count(3);
+        yield return new WaitForSeconds(3.5f);
+        if(OnGameStart != null) OnGameStart();
         isGameOn = true;
         yield return new WaitForSeconds(gameDuration);
         // подсчитать клики и накинуть за них бабла
@@ -24,16 +28,7 @@ public class FastClickMinigame : MiniGameState
         GameManager.Instance.SwitchState(state);
     }
 
-    IEnumerator CountToStart()
-    {
-        int seconds = Mathf.RoundToInt(prepareTime);
-        for(int i = seconds; i > 0; i--)
-        {
-            print("Время до старта: " + i);
-            yield return new WaitForSeconds(1);
-        }
-        print("Начали!");
-    }
+ 
 
     public override void Deactivate()
     {
