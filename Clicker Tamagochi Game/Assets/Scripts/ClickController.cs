@@ -14,15 +14,17 @@ public class ClickController : MonoBehaviour
     float realCPS = 0;
 
     public float CPS = 0;
-
+    bool canClick = true;
     // Start is called before the first frame update
     void Start()
     {
         data = GameData.Instance;
+        GameManager.Instance.OnActivate += OnSwitchState;
     }
 
     private void OnMouseDown()
     {
+        if (canClick == false) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (EventSystem.current.IsPointerOverGameObject(1)) return;
         data.EarnCoinsForClick();
@@ -45,6 +47,13 @@ public class ClickController : MonoBehaviour
         CPS = Mathf.Lerp(CPS, realCPS, 4 * Time.deltaTime);
         realCPS -= Time.deltaTime * 3;
         if (realCPS < 0) realCPS = 0;
+    }
+
+    void OnSwitchState(GameState state)
+    {
+        if (state is DefaultState) canClick = true;
+        else if (state is FastClickMinigame) canClick = true;
+        else canClick = false;
     }
 
 }

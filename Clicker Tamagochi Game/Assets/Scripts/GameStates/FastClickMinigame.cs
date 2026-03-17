@@ -22,10 +22,30 @@ public class FastClickMinigame : MiniGameState
         if(OnGameStart != null) OnGameStart();
         isGameOn = true;
         yield return new WaitForSeconds(gameDuration);
-        // подсчитать клики и накинуть за них бабла
+        yield return StartCoroutine(FinishMiniGame());
         isGameOn = false;
         DefaultState state = FindObjectOfType<DefaultState>();
         GameManager.Instance.SwitchState(state);
+    }
+
+    IEnumerator FinishMiniGame()
+    {
+        FastClickUI ui = FindObjectOfType<FastClickUI>();
+        ShowEarnText.Instance.Show("Миниигра закончена");
+        ui.HideUI();
+        yield return new WaitForSeconds(1);
+        ShowEarnText.Instance.Show("Клики = "+ ui.GetClicks());
+        yield return new WaitForSeconds(1);
+        ShowEarnText.Instance.Show("max CPS = " + ui.GetMaxCPS().ToString("#.#"));
+        yield return new WaitForSeconds(1);
+        string earnStr = CoinsFormatter.Convert(GameData.Instance.Earn);
+        ShowEarnText.Instance.Show($"Общая прокачка {earnStr} за клик");
+        yield return new WaitForSeconds(1);
+        float allMoney = ui.GetClicks() * ui.GetMaxCPS() * GameData.Instance.Earn;
+        string allMoneyStr = CoinsFormatter.Convert(allMoney);
+        ShowEarnText.Instance.Show($"Всего заработано {allMoneyStr}" );
+        yield return new WaitForSeconds(3);
+        ShowEarnText.Instance.Hide();
     }
 
  

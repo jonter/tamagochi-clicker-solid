@@ -10,6 +10,7 @@ public class GameData
 
     public float Coins = 0;
     private float multiplier = 1;
+    public float Earn = 1;
 
     public event Action<float> OnCoinsAdd;
     public event Action<float, bool> OnCoinsSpend;
@@ -39,13 +40,13 @@ public class GameData
 
     public void EarnCoinsForClick()
     {
-        float earn = computer.CPULevel;
-        earn += (computer.RAMLevel - 1) * 10;
-        earn += (computer.VCLevel - 1) * 50;
+        Earn = computer.CPULevel;
+        Earn += (computer.RAMLevel - 1) * 10;
+        Earn += (computer.VCLevel - 1) * 50;
         // возможно сделать так, чтобы в зависимости от прокачки игрока
         // у нас также рос заработок
-        earn *= multiplier;
-        AddCoins(earn);
+        Earn *= multiplier;
+        AddCoins(Earn);
     }
 
     ////////////// логика покупки тамагочи

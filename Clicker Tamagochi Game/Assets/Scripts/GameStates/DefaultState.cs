@@ -8,22 +8,14 @@ public class DefaultState : GameState
     [SerializeField] RectTransform upgradePanel;
     float showX = 250;
     float hideX = -500;
-    ClickController cc;
-
-    private void Awake()
-    {
-        cc = FindObjectOfType<ClickController>();
-    }
 
     public override void Activate()
     {
-        cc.enabled = true;
         upgradePanel.DOAnchorPosX(showX, 1).SetEase(Ease.InOutSine);
     }
 
     public override void Deactivate()
     {
-        cc.enabled = false;
         upgradePanel.DOAnchorPosX(hideX, 1).SetEase(Ease.InOutSine);
     }
 }
