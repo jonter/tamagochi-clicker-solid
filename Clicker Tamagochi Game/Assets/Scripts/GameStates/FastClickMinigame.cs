@@ -46,6 +46,7 @@ public class FastClickMinigame : MiniGameState
         ShowEarnText.Instance.Show($"Всего заработано {allMoneyStr}" );
         yield return new WaitForSeconds(3);
         ShowEarnText.Instance.Hide();
+        GameData.Instance.AddCoins(allMoney);
     }
 
  

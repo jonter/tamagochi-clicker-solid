@@ -14,12 +14,11 @@ public class CoinsDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        
-        coinsText = GetComponentInChildren<TMP_Text>();
+        coinsText = transform.GetChild(1).GetComponent<TMP_Text>(); 
         GameData.Instance.OnCoinsAdd += DisplayCoins;
         GameData.Instance.OnCoinsSpend += DisplayCoins;
-        startTextPos = coinsText.rectTransform.localPosition;   
-        GameData.Instance.AddCoins(0);
+        startTextPos = coinsText.rectTransform.localPosition;
+        coinsText.text = CoinsFormatter.Convert(GameData.Instance.Coins);
     }
 
     private void OnDisable()
@@ -29,9 +28,9 @@ public class CoinsDisplay : MonoBehaviour
         coinsText.rectTransform.DOKill();
     }
 
-    void DisplayCoins(float coins)
+    void DisplayCoins(float add)
     {
-        coinsText.text = CoinsFormatter.Convert(coins);
+        coinsText.text = CoinsFormatter.Convert(GameData.Instance.Coins);
         AnimTextJump();
     }
 
@@ -44,11 +43,11 @@ public class CoinsDisplay : MonoBehaviour
     }
 
 
-    void DisplayCoins(float coins, bool success)
+    void DisplayCoins(float spending, bool success)
     {
         if(success)
         {
-            coinsText.text = CoinsFormatter.Convert(coins);
+            coinsText.text = CoinsFormatter.Convert(GameData.Instance.Coins);
             AnimTextJump();
         }
         else

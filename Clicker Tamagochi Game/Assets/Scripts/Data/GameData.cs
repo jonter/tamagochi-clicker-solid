@@ -19,7 +19,7 @@ public class GameData
     public void AddCoins(float add)
     {
         Coins += add;
-        if (OnCoinsAdd != null) OnCoinsAdd(Coins);
+        if (OnCoinsAdd != null) OnCoinsAdd(add);
     }
 
     public bool SpendCoins(float price)
@@ -27,12 +27,12 @@ public class GameData
         if(Coins >= price)
         {
             Coins -= price;
-            if (OnCoinsSpend != null) OnCoinsSpend(Coins, true);
+            if (OnCoinsSpend != null) OnCoinsSpend(price, true);
             return true;
         }
         else
         {
-            if (OnCoinsSpend != null) OnCoinsSpend(Coins, false);
+            if (OnCoinsSpend != null) OnCoinsSpend(price, false);
             return false;
         }
     }
