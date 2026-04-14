@@ -51,7 +51,7 @@ public class GameData
 
     ////////////// логика покупки тамагочи
 
-    float[] tamagochiPrices = { 500, 20000, 100000, 1500000, 500000000, 10000000000 };
+    float[] tamagochiPrices = { 500, 20000, 500000, 7000000, 400000000, 10000000000 };
     public float GetTamagochiPrice()
     {
         int lenght = tamagochies.Length;
