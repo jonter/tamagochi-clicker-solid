@@ -23,6 +23,10 @@ public class EarnText : MonoBehaviour
 
         GameData.Instance.OnCoinsAdd += Earn;
         GameData.Instance.OnCoinsSpend += Spend;
+
+        startColor.a = 0;
+        mytext.color = startColor;
+        startColor.a = 1;
     }
 
     private void OnDisable()

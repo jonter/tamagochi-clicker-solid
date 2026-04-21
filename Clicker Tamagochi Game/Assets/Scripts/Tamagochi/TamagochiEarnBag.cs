@@ -13,6 +13,7 @@ public class TamagochiEarnBag : MonoBehaviour
     public float maxMoney = 3500;
 
     [SerializeField] Transform bagMesh;
+    [SerializeField] GameObject[] fills;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,8 +26,10 @@ public class TamagochiEarnBag : MonoBehaviour
         if (add < 0.1f) return;
         currentMoney += add;
         if(currentMoney > maxMoney) currentMoney = maxMoney;
+        else bagMesh.DOScale(3.3f, 0.1f).SetLoops(2, LoopType.Yoyo);
+        
         DisplayText();
-        bagMesh.DOScale(3.3f, 0.1f).SetLoops(2,LoopType.Yoyo);
+        DisplayFill();
     }
 
     void DisplayText()
@@ -55,8 +58,22 @@ public class TamagochiEarnBag : MonoBehaviour
         GameData.Instance.AddCoins(currentMoney);
         currentMoney = 0;
         DisplayText();
+        DisplayFill();
         bagMesh.localScale = new Vector3(3, 3, 3);
         bagMesh.DOScaleY(2, 0.1f).SetLoops(2, LoopType.Yoyo);
+    }
+
+    void DisplayFill()
+    {
+        float percent = currentMoney / maxMoney;
+        if(percent >= 0.1f) fills[0].SetActive(true);
+        else fills[0].SetActive(false);
+
+        if (percent >= 0.4f) fills[1].SetActive(true);
+        else fills[1].SetActive(false);
+
+        if (percent >= 0.8f) fills[2].SetActive(true);
+        else fills[2].SetActive(false);
     }
 
 }

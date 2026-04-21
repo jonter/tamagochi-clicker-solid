@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,21 @@ public class TamagochiIncome : MonoBehaviour
     float earnBasic = 50;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         earnBag = FindObjectOfType<TamagochiEarnBag>();
         CalculateEarning();
         StartCoroutine(EarnCoroutine());
+    }
+
+    public void GetOfflineEarn(TimeSpan offlineTime)
+    {
+        double mins = offlineTime.TotalMinutes;
+        if (mins <= 0) return;
+        if (mins > 360) mins = 360;
+
+        float earn = (float)mins * earnPerMinute / 2;
+        earnBag.AddMoney(earn);
     }
 
     private void OnEnable()
